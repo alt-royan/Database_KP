@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smoke Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function get(ref) {
+            window.location.href = ref;
+        }
+    </script>
+</head>
+<body>
+<h2>Товары</h2>
+<button onclick="get('/')">В главное меню</button>
+<table width="100%">
+    <td>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Количество на складе</th>
+                <th>Цена</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getId()}">ID</td>
+                <td th:text="${product.getTitle()}">title</td>
+                <td th:text="${product.getAmount()}">amount</td>
+                <td th:text="${product.getPrice()}">Price</td>
+                <td>
+                    <button th:onclick="|get('/product/${product.getId()}')|">Посмотреть</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+    <td>
+        <form action="" method="post" class="form-example">
+            <div class="form-example">
+                <label for="id">ID: </label>
+                <input type="text" name="id" id="id" required>
+            </div>
+            <div class="form-example">
+                <label for="title">Название: </label>
+                <input type="text" name="title" id="title" required>
+            </div>
+            <div class="form-example">
+                <label for="amount">Количество на складе: </label>
+                <input type="number" name="amount" id="amount" required>
+            </div>
+            <div class="form-example">
+                <label for="price">Цена товара: </label>
+                <input type="text" name="price" id="price" required>
+            </div>
+            <div class="form-example">
+                <label for="description">Описание: </label>
+                <input type="text" name="description" id="description" required>
+            </div>
+            <div class="form-example">
+                <input type="submit" value="Создать">
+            </div>
+        </form>
+    </td>
+</table>
+<style>
+    form{
+        left: 1000px;
+    }
+</style>
+</body>
+</html>

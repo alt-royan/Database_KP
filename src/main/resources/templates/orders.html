@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smoke Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function get(ref) {
+            window.location.href = ref;
+        }
+    </script>
+</head>
+<body>
+<h2>Заказы</h2>
+<button onclick="get('/')">В главное меню</button>
+<table width="100%">
+    <td>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Номер заказа</th>
+                <th>Время доставки (дней)</th>
+                <th>Сумма заказа</th>
+                <th>Дата заказа</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.getId()}">ID</td>
+                <td th:text="${order.getNumber()}">Name</td>
+                <td th:text="${order.getDeliveryTime()}">Phone</td>
+                <td th:text="${order.getTotalPrice()}">E-mail</td>
+                <td th:text="${order.getOrderDate()}">Address</td>
+                <td>
+                    <button th:onclick="|get('/order/${order.getId()}')|">Посмотреть</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+    <td>
+        <form action="" method="post" class="form-example">c
+            <div class="form-example">
+                <label for="id">ID: </label>
+                <input type="text" name="id" id="id" required>
+            </div>
+            <div class="form-example">
+                <label for="number">Номер заказа: </label>
+                <input type="number" name="number" id="number" required>
+            </div>
+            <div class="form-example">
+                <label for="deliveryTime">Время доставки (дней): </label>
+                <input type="number" name="deliveryTime" id="deliveryTime" required>
+            </div>
+            <div class="form-example">
+                <label for="clientId">Id клиента: </label>
+                <input type="text" name="clientId" id="clientId" required>
+            </div>
+            <div class="form-example">
+                <input type="submit" value="Создать">
+            </div>
+        </form>
+    </td>
+</table>
+<style>
+    form{
+        left: 1000px;
+    }
+</style>
+</body>
+</html>

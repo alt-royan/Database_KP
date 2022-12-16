@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smoke Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function get(ref) {
+            window.location.href = ref;
+        }
+    </script>
+</head>
+<body>
+<button onclick="get('/')">В главное меню</button>
+<form action="/client" method="post" class="form-example">
+    <div class="form-example">
+        <label for="id">ID: </label>
+        <input type="text" name="id" id="id" th:value="${client.getId()}" required>
+    </div>
+    <div class="form-example">
+        <label for="name">Фио: </label>
+        <input type="text" name="name" id="name" th:value="${client.getFullName()}" required>
+    </div>
+    <div class="form-example">
+        <label for="phone">Телефон: </label>
+        <input type="text" name="phone" id="phone" th:value="${client.getPhone()}" required>
+    </div>
+    <div class="form-example">
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" th:value="${client.getEmail()}" required>
+    </div>
+    <div class="form-example">
+        <label for="address">Адрес: </label>
+        <input type="text" name="address" id="address" th:value="${client.getAddress()}" required>
+    </div>
+    <div class="form-example">
+        <input type="submit" value="Сохранить">
+    </div>
+</form>
+<span>
+    Заказы:
+    <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Номер заказа</th>
+                <th>Время доставки (дней)</th>
+                <th>Сумма заказа</th>
+                <th>Дата заказа</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${client.getOrders()}">
+                <td th:text="${order.getId()}">ID</td>
+                <td th:text="${order.getNumber()}">Name</td>
+                <td th:text="${order.getDeliveryTime()}">Phone</td>
+                <td th:text="${order.getTotalPrice()}">E-mail</td>
+                <td th:text="${order.getOrderDate()}">Address</td>
+                <td>
+                    <button th:onclick="|get('/order/${order.getId()}')|">Посмотреть</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</span>
+<style>
+    form {
+        left: 1000px;
+    }
+</style>
+</body>
+</html>

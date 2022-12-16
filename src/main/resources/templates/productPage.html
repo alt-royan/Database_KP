@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smoke Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function get(ref) {
+            window.location.href = ref;
+        }
+    </script>
+</head>
+<body>
+<button onclick="get('/')">В главное меню</button>
+<form action="/product" method="post" class="form-example">
+    <div class="form-example">
+        <label for="id">ID: </label>
+        <input type="text" name="id" id="id" th:value="${product.getId()}" required>
+    </div>
+    <div class="form-example">
+        <label for="title">Название: </label>
+        <input type="text" name="title" id="title" th:value="${product.getTitle()}" required>
+    </div>
+    <div class="form-example">
+        <label for="amount">Количество на складе: </label>
+        <input type="number" name="amount" id="amount" th:value="${product.getAmount()}" required>
+    </div>
+    <div class="form-example">
+        <label for="price">Цена товара: </label>
+        <input type="text" name="price" id="price" th:value="${product.getPrice()}" required>
+    </div>
+    <div class="form-example">
+        <label for="description">Описание: </label>
+        <input type="text" name="description" id="description" height="50" th:value="${product.getDescription()}" required>
+    </div>
+    <div class="form-example">
+        <input type="submit" value="Сохранить">
+    </div>
+</form>
+<span>
+    Категории:
+    <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="partition : ${product.getPartitions()}">
+                <td th:text="${partition.getId()}">ID</td>
+                <td th:text="${partition.getName()}">title</td>
+                <td th:text="${partition.getDescription()}">amount</td>
+            </tr>
+            </tbody>
+        </table>
+</span>
+<style>
+    form {
+        left: 1000px;
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Smoke Tests</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <script>
+    function get(ref){
+      window.location.href = ref;
+    }
+  </script>
+</head>
+<body>
+<h2>Меню</h2>
+<button onclick="get('/client')">Клиенты</button>
+<button onclick="get('/product')">Товары</button>
+<button onclick="get('/order')">Заказы</button>
+</body>
+</html>

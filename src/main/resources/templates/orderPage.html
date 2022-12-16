@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smoke Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function get(ref) {
+            window.location.href = ref;
+        }
+    </script>
+</head>
+<body>
+<button onclick="get('/')">В главное меню</button>
+<form action="/order" method="post" class="form-example">c
+    <div class="form-example">
+        <label for="id">ID: </label>
+        <input type="text" name="id" id="id" th:value="${order.getId()}" required>
+    </div>
+    <div class="form-example">
+        <label for="number">Номер заказа: </label>
+        <input type="number" name="number" id="number" th:value="${order.getNumber()}" required>
+    </div>
+    <div class="form-example">
+        <label for="deliveryTime">Время доставки (дней): </label>
+        <input type="number" name="deliveryTime" id="deliveryTime" th:value="${order.getDeliveryTime()}" required>
+    </div>
+    <div class="form-example">
+        <label for="totalPrice">Сумма заказа: </label>
+        <input type="text" name="totalPrice" id="totalPrice" th:value="${order.getTotalPrice()}" required>
+    </div>
+    <div class="form-example">
+        <label for="orderDate">Дата заказа: </label>
+        <input type="text" name="orderDate" id="orderDate" th:value="${order.getOrderDate()}" required>
+    </div>
+    <div class="form-example">
+        <input type="submit" value="Создать">
+    </div>
+</form>
+<span>
+    Клиент:
+    <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${order.getClient().getId()}">ID</td>
+                <td th:text="${order.getClient().getFullName()}">Name</td>
+                <td th:text="${order.getClient().getPhone()}">Phone</td>
+                <td th:text="${order.getClient().getEmail()}">E-mail</td>
+                <td th:text="${order.getClient().getAddress()}">Address</td>
+                <td>
+                    <button th:onclick="|get('/client/${order.getClient().getId()}')|">Посмотреть</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</span>
+<span>
+    Товары:
+     <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Количество на складе</th>
+                <th>Цена</th>
+                <th>Количество в заказе</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="purchase : ${order.getPurchases()}">
+                <td th:text="${purchase.getProduct().getId()}">ID</td>
+                <td th:text="${purchase.getProduct().getTitle()}">title</td>
+                <td th:text="${purchase.getProduct().getAmount()}">amount</td>
+                <td th:text="${purchase.getProduct().getPrice()}">Price</td>
+                <td th:text="${purchase.getCount()}">Price</td>
+                <td>
+                    <button th:onclick="|get('/product/${purchase.getProduct().getId()}')|">Посмотреть</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</span>
+<style>
+    form {
+        left: 1000px;
+    }
+</style>
+</body>
+</html>

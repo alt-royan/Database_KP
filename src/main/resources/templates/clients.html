@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smoke Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function get(ref) {
+            window.location.href = ref;
+        }
+    </script>
+</head>
+<body>
+<h2>Клиенты</h2>
+<button onclick="get('/')">В главное меню</button>
+<table width="100%">
+    <td>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>ФИО</th>
+                <th>Телефон</th>
+                <th>E-mail</th>
+                <th>Адрес</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client : ${clients}">
+                <td th:text="${client.getId()}">ID</td>
+                <td th:text="${client.getFullName()}">Name</td>
+                <td th:text="${client.getPhone()}">Phone</td>
+                <td th:text="${client.getEmail()}">E-mail</td>
+                <td th:text="${client.getAddress()}">Address</td>
+                <td>
+                    <button th:onclick="|get('/client/${client.getId()}')|">Посмотреть</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+    <td>
+        <form action="" method="post" class="form-example">
+            <div class="form-example">
+                <label for="id">ID: </label>
+                <input type="text" name="id" id="id" required>
+            </div>
+            <div class="form-example">
+                <label for="name">Фио: </label>
+                <input type="text" name="name" id="name" required>
+            </div>
+            <div class="form-example">
+                <label for="phone">Телефон: </label>
+                <input type="text" name="phone" id="phone" required>
+            </div>
+            <div class="form-example">
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div class="form-example">
+                <label for="address">Адрес: </label>
+                <input type="text" name="address" id="address" required>
+            </div>
+            <div class="form-example">
+                <input type="submit" value="Создать">
+            </div>
+        </form>
+    </td>
+</table>
+<style>
+    form{
+        left: 1000px;
+    }
+</style>
+</body>
+</html>
